@@ -9,8 +9,8 @@
 
 #ifdef FINTER_HAVE_LIBZ
 
-annotate_frequency::finter_reader_gzip::finter_reader_gzip()
-    : annotate_frequency::finter_reader(),
+finter::finter_reader_gzip::finter_reader_gzip()
+    : finter::finter_reader(),
       _gz_input(0),
       _eof(false),
       _buf(0),
@@ -19,22 +19,22 @@ annotate_frequency::finter_reader_gzip::finter_reader_gzip()
   for (unsigned i = 0; i < _buf_max + 1; ++i) _buf[i] = '\0';
 }
 
-void annotate_frequency::finter_reader_gzip::open(const char *filename) {
+void finter::finter_reader_gzip::open(const char *filename) {
   if (!_gz_input) {
     _gz_input = gzopen(filename, "rb");
     if (!_gz_input)
       throw std::domain_error(
-          "annotate_frequency::finter_reader_gzip::open: could not "
+          "finter::finter_reader_gzip::open: could not "
           "open file \"" +
           std::string(filename) + "\"");
   } else {
     throw std::domain_error(
-        "annotate_frequency::finter_reader_gzip::open: reopen attempted "
+        "finter::finter_reader_gzip::open: reopen attempted "
         "on active handle");
   }
 }
 
-void annotate_frequency::finter_reader_gzip::close() {
+void finter::finter_reader_gzip::close() {
   if (_gz_input) {
     gzclose(_gz_input);
     _gz_input = 0;
@@ -42,21 +42,21 @@ void annotate_frequency::finter_reader_gzip::close() {
   clear();
 }
 
-void annotate_frequency::finter_reader_gzip::clear() {
+void finter::finter_reader_gzip::clear() {
   _good = true;
   _bad = _fail = _eof = false;
 }
 
-bool annotate_frequency::finter_reader_gzip::is_open() const {
+bool finter::finter_reader_gzip::is_open() const {
   return _gz_input;
 }
 
-char annotate_frequency::finter_reader_gzip::get() {
+char finter::finter_reader_gzip::get() {
   read(_buf, 1);
   return _buf[0];
 }
 
-bool annotate_frequency::finter_reader_gzip::getline(std::string *line) {
+bool finter::finter_reader_gzip::getline(std::string *line) {
   if (!line) throw std::runtime_error("gzip_reader::getline: null pointer");
   *line = "";
   while (true) {
@@ -72,12 +72,12 @@ bool annotate_frequency::finter_reader_gzip::getline(std::string *line) {
   }
 }
 
-void annotate_frequency::finter_reader_gzip::read(char *buf,
+void finter::finter_reader_gzip::read(char *buf,
                                                   std::streamsize n) {
   int my_errno = 0;
   if ((my_errno = gzread(_gz_input, reinterpret_cast<void *>(buf), n)) < 0) {
     throw std::domain_error(
-        "annotate_frequency::finter_reader_gzip::read: read call of"
+        "finter::finter_reader_gzip::read: read call of"
         " size " +
         std::to_string(n) + " failed");
   } else if (!my_errno) {

@@ -5,8 +5,8 @@
   Copyright 2020 Cameron Palmer
  */
 
-#ifndef FINTER_FINTER_FINTER_READER_GZIP_H_
-#define FINTER_FINTER_FINTER_READER_GZIP_H_
+#ifndef FINTER_FINTER_READER_GZIP_H_
+#define FINTER_FINTER_READER_GZIP_H_
 
 #include "finter/config.h"
 #ifdef FINTER_HAVE_LIBZ
@@ -19,7 +19,7 @@
 
 #include "finter/helper.h"
 
-namespace annotate_frequency {
+namespace finter {
 /*!
   \class finter_reader_gzip
   \brief interface for zlib (gzip) file input that doesn't break my brain
@@ -97,8 +97,8 @@ class finter_reader_gzip : public finter_reader {
   char *_buf;  //!< internal character buffer for file read operations
   unsigned _buf_max;  //!< size of allocated internal character buffer
 };
-}  // namespace annotate_frequency
+}  // namespace finter
 
 #endif  // HAVE_LIBZ
 
-#endif  // FINTER_FINTER_FINTER_READER_GZIP_H_
+#endif  // FINTER_FINTER_READER_GZIP_H_

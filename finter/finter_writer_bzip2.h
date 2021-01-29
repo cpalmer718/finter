@@ -5,8 +5,8 @@
   Copyright 2020 Cameron Palmer
  */
 
-#ifndef FINTER_FINTER_FINTER_WRITER_BZIP2_H_
-#define FINTER_FINTER_FINTER_WRITER_BZIP2_H_
+#ifndef FINTER_FINTER_WRITER_BZIP2_H_
+#define FINTER_FINTER_WRITER_BZIP2_H_
 
 #include <bzlib.h>
 #include <cstdio>
@@ -16,7 +16,7 @@
 #include "finter/config.h"
 #include "finter/finter_writer_parent.h"
 
-namespace annotate_frequency {
+namespace finter {
 /*!
   \class finter_writer_bzip2
   \brief interface for bzip2 file output that doesn't break my brain
@@ -90,6 +90,6 @@ class finter_writer_bzip2 : public finter_writer {
   FILE *_raw_output;   //!< C-style file handle used by bz2 library
   BZFILE *_bz_output;  //!< bz2 library interface to underlying file pointer
 };
-}  // namespace annotate_frequency
+}  // namespace finter
 
-#endif  // FINTER_FINTER_FINTER_WRITER_BZIP2_H_
+#endif  // FINTER_FINTER_WRITER_BZIP2_H_

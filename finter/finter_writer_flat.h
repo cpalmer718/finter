@@ -5,15 +5,15 @@
   Copyright 2020 Cameron Palmer
  */
 
-#ifndef FINTER_FINTER_FINTER_WRITER_FLAT_H_
-#define FINTER_FINTER_FINTER_WRITER_FLAT_H_
+#ifndef FINTER_FINTER_WRITER_FLAT_H_
+#define FINTER_FINTER_WRITER_FLAT_H_
 
 #include <fstream>
 #include <stdexcept>
 #include <string>
 #include "finter/finter_writer_parent.h"
 
-namespace annotate_frequency {
+namespace finter {
 /*!
   \class finter_writer_flat
   \brief for compatibility, interface for uncompressed files using ofstreams
@@ -90,6 +90,6 @@ class finter_writer_flat : public finter_writer {
  private:
   std::ofstream _output;  //!< file stream that actually does all the work
 };
-}  // namespace annotate_frequency
+}  // namespace finter
 
-#endif  // FINTER_FINTER_FINTER_WRITER_FLAT_H_
+#endif  // FINTER_FINTER_WRITER_FLAT_H_

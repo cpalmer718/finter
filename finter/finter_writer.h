@@ -6,11 +6,11 @@
   Copyright 2020 Cameron Palmer
  */
 
-#ifndef FINTER_FINTER_FINTER_WRITER_H_
-#define FINTER_FINTER_FINTER_WRITER_H_
+#ifndef FINTER_FINTER_WRITER_H_
+#define FINTER_FINTER_WRITER_H_
 
 #include "finter/finter_writer_bzip2.h"
 #include "finter/finter_writer_flat.h"
 #include "finter/finter_writer_gzip.h"
 
-#endif  // FINTER_FINTER_FINTER_WRITER_H_
+#endif  // FINTER_FINTER_WRITER_H_

@@ -6,8 +6,8 @@
   Copyright 2020 Cameron Palmer
  */
 
-#ifndef FINTER_FINTER_FINTER_H_
-#define FINTER_FINTER_FINTER_H_
+#ifndef FINTER_FINTER_H_
+#define FINTER_FINTER_H_
 
 #include <iostream>
 #include <string>
@@ -15,7 +15,7 @@
 #include "finter/finter_reader.h"
 #include "finter/finter_writer.h"
 
-namespace annotate_frequency {
+namespace finter {
 /*!
   \brief utility function to facilitate file input while respecting compression
   suffixes
@@ -60,6 +60,6 @@ inline finter_writer *reconcile_writer(const std::string &filename) {
   }
   return ptr;
 }
-}  // namespace annotate_frequency
+}  // namespace finter
 
-#endif  // FINTER_FINTER_FINTER_H_
+#endif  // FINTER_FINTER_H_

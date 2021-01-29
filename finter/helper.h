@@ -12,7 +12,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace annotate_frequency {
+namespace finter {
 /*!
   \brief get platform-specific newline character
   \return platform-specific newline character
@@ -26,5 +26,5 @@ inline std::string get_newline() {
   return "\n";
 #endif
 }
-}  // namespace annotate_frequency
+}  // namespace finter
 #endif  // FINTER_FINTER_HELPER_H_

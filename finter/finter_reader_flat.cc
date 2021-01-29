@@ -12,16 +12,16 @@
 
 #include "finter/finter_reader_flat.h"
 
-void annotate_frequency::finter_reader_flat::open(const char *filename) {
+void finter::finter_reader_flat::open(const char *filename) {
   _input.open(filename);
   if (!_input.is_open())
     throw std::domain_error(
-        "annotate_frequency::finter_reader_flat::open: cannot open file "
+        "finter::finter_reader_flat::open: cannot open file "
         "\"" +
         std::string(filename) + "\"");
 }
 
-bool annotate_frequency::finter_reader_flat::getline(std::string *line) {
+bool finter::finter_reader_flat::getline(std::string *line) {
   if (!line) throw std::runtime_error("flat_reader::getline: null pointer");
   *line = "";
   if (_input.peek() == EOF) return false;
@@ -29,7 +29,7 @@ bool annotate_frequency::finter_reader_flat::getline(std::string *line) {
   return true;
 }
 
-void annotate_frequency::finter_reader_flat::read(char *buf,
+void finter::finter_reader_flat::read(char *buf,
                                                   std::streamsize n) {
   _input.read(buf, n);
 }

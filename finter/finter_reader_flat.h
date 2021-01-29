@@ -5,8 +5,8 @@
   Copyright 2020 Cameron Palmer
  */
 
-#ifndef FINTER_FINTER_FINTER_READER_FLAT_H_
-#define FINTER_FINTER_FINTER_READER_FLAT_H_
+#ifndef FINTER_FINTER_READER_FLAT_H_
+#define FINTER_FINTER_READER_FLAT_H_
 
 #include "finter/finter_reader_parent.h"
 
@@ -14,7 +14,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace annotate_frequency {
+namespace finter {
 /*!
   \class finter_reader_flat
   \brief for compatibility, interface for uncompressed files using ifstreams
@@ -86,6 +86,6 @@ class finter_reader_flat : public finter_reader {
  private:
   std::ifstream _input;  //!< file stream that actually does all the work
 };
-}  // namespace annotate_frequency
+}  // namespace finter
 
-#endif  // FINTER_FINTER_FINTER_READER_FLAT_H_
+#endif  // FINTER_FINTER_READER_FLAT_H_

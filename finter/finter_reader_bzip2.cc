@@ -7,7 +7,7 @@
 
 #include "finter/finter_reader_bzip2.h"
 
-annotate_frequency::finter_reader_bzip2::finter_reader_bzip2()
+finter::finter_reader_bzip2::finter_reader_bzip2()
     : finter_reader(),
       _raw_input(0),
       _bz_input(0),
@@ -20,21 +20,21 @@ annotate_frequency::finter_reader_bzip2::finter_reader_bzip2()
   for (unsigned i = 0; i < _buf_max + 1; ++i) _buf[i] = '\0';
 }
 
-void annotate_frequency::finter_reader_bzip2::open(const char *filename) {
+void finter::finter_reader_bzip2::open(const char *filename) {
   if (_raw_input)
     throw std::domain_error(
-        "annotate_frequency::finter_reader_bzip2: attempted to reopen "
+        "finter::finter_reader_bzip2: attempted to reopen "
         "in-use handle");
   _raw_input = fopen(filename, "r");
   if (!_raw_input)
     throw std::domain_error(
-        "annotate_frequency::finter_reader_bzip2: cannot open file \"" +
+        "finter::finter_reader_bzip2: cannot open file \"" +
         std::string(filename) + "\"");
   int error = 0;
   _bz_input = BZ2_bzReadOpen(&error, _raw_input, 0, 0, NULL, 0);
   if (error == BZ_CONFIG_ERROR) {
     throw std::domain_error(
-        "annotate_frequency::finter_reader_bzip2::open: bzip2 reading "
+        "finter::finter_reader_bzip2::open: bzip2 reading "
         "library reports it was compiled improperly");
   } else if (error == BZ_PARAM_ERROR) {
     _fail = true;
@@ -43,13 +43,13 @@ void annotate_frequency::finter_reader_bzip2::open(const char *filename) {
   }
 }
 
-void annotate_frequency::finter_reader_bzip2::close() {
+void finter::finter_reader_bzip2::close() {
   if (_bz_input) {
     int error = 0;
     BZ2_bzReadClose(&error, _bz_input);
     if (error == BZ_SEQUENCE_ERROR)
       throw std::domain_error(
-          "annotate_frequency::finter_reader_bzip2::close: bzip2 reports "
+          "finter::finter_reader_bzip2::close: bzip2 reports "
           "read/close operation called on write handle");
     _bz_input = 0;
   }
@@ -60,28 +60,28 @@ void annotate_frequency::finter_reader_bzip2::close() {
   clear();
 }
 
-void annotate_frequency::finter_reader_bzip2::clear() {
+void finter::finter_reader_bzip2::clear() {
   _good = true;
   _bad = _fail = false;
   _buf_remaining = _buf_read = 0;
 }
 
-bool annotate_frequency::finter_reader_bzip2::is_open() const {
+bool finter::finter_reader_bzip2::is_open() const {
   return (_raw_input && _bz_input);
 }
 
-char annotate_frequency::finter_reader_bzip2::get() {
+char finter::finter_reader_bzip2::get() {
   if (!_buf_remaining) {
     refresh_buffer();
   }
   if (!_buf_remaining)
     throw std::domain_error(
-        "annotate_frequency::finter_reader_bzip2::get: end of file");
+        "finter::finter_reader_bzip2::get: end of file");
   --_buf_remaining;
   return _buf[_buf_read - (_buf_remaining + 1)];
 }
 
-bool annotate_frequency::finter_reader_bzip2::getline(std::string *res) {
+bool finter::finter_reader_bzip2::getline(std::string *res) {
   if (!res) throw std::runtime_error("bzip2_reader: null pointer");
   bool retval = false;
   *res = "";
@@ -117,13 +117,13 @@ bool annotate_frequency::finter_reader_bzip2::getline(std::string *res) {
   return (_fail || bad() ? false : retval);
 }
 
-bool annotate_frequency::finter_reader_bzip2::eof() const { return _eof; }
+bool finter::finter_reader_bzip2::eof() const { return _eof; }
 
-bool annotate_frequency::finter_reader_bzip2::good() const { return _good; }
+bool finter::finter_reader_bzip2::good() const { return _good; }
 
-bool annotate_frequency::finter_reader_bzip2::bad() const { return _bad; }
+bool finter::finter_reader_bzip2::bad() const { return _bad; }
 
-void annotate_frequency::finter_reader_bzip2::read(char *target,
+void finter::finter_reader_bzip2::read(char *target,
                                                    std::streamsize n) {
   unsigned amount_read = 0;
   if (_buf_remaining) {
@@ -148,7 +148,7 @@ void annotate_frequency::finter_reader_bzip2::read(char *target,
       _fail = true;
     } else if (error == BZ_SEQUENCE_ERROR) {
       throw std::domain_error(
-          "annotate_frequency::finter_reader_bzip2::read: bzip2 reports "
+          "finter::finter_reader_bzip2::read: bzip2 reports "
           "read called on stream opened as write");
     }
   } else if (eof()) {
@@ -156,7 +156,7 @@ void annotate_frequency::finter_reader_bzip2::read(char *target,
   }
 }
 
-void annotate_frequency::finter_reader_bzip2::refresh_buffer() {
+void finter::finter_reader_bzip2::refresh_buffer() {
   if (!eof()) {
     int error = 0;
     int num_read =
@@ -172,7 +172,7 @@ void annotate_frequency::finter_reader_bzip2::refresh_buffer() {
       _fail = true;
     } else if (error == BZ_SEQUENCE_ERROR) {
       throw std::domain_error(
-          "annotate_frequency::finter_reader_bzip2::refresh_buffer: "
+          "finter::finter_reader_bzip2::refresh_buffer: "
           "bzip2 reports "
           "read called on stream opened as write");
     }

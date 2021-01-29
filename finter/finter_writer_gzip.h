@@ -5,8 +5,8 @@
   Copyright 2020 Cameron Palmer
  */
 
-#ifndef FINTER_FINTER_FINTER_WRITER_GZIP_H_
-#define FINTER_FINTER_FINTER_WRITER_GZIP_H_
+#ifndef FINTER_FINTER_WRITER_GZIP_H_
+#define FINTER_FINTER_WRITER_GZIP_H_
 
 #include "finter/config.h"
 #ifdef FINTER_HAVE_LIBZ
@@ -20,7 +20,7 @@
 
 #include "finter/helper.h"
 
-namespace annotate_frequency {
+namespace finter {
 /*!
   \class finter_writer_gzip
   \brief interface for zlib (gzip) file output that doesn't break my brain
@@ -94,8 +94,8 @@ class finter_writer_gzip : public finter_writer {
   bool _eof;  //!< internal state flag: whether end of file has been reached
   gzFile _gz_output;  //!< zlib library interface for file input
 };
-}  // namespace annotate_frequency
+}  // namespace finter
 
 #endif  // HAVE_LIBZ
 
-#endif  // FINTER_FINTER_FINTER_WRITER_GZIP_H_
+#endif  // FINTER_FINTER_WRITER_GZIP_H_

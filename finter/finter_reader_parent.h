@@ -5,15 +5,15 @@
   Copyright 2020 Cameron Palmer
  */
 
-#ifndef FINTER_FINTER_FINTER_READER_PARENT_H_
-#define FINTER_FINTER_FINTER_READER_PARENT_H_
+#ifndef FINTER_FINTER_READER_PARENT_H_
+#define FINTER_FINTER_READER_PARENT_H_
 
 #include <ios>
 #include <string>
 
 #include "finter/helper.h"
 
-namespace annotate_frequency {
+namespace finter {
 /*!
   \class finter_reader
   \brief parent class for all finter readers
@@ -89,6 +89,6 @@ class finter_reader {
   bool _bad;   //!< internal state flag: whether stream is in invalid state
   bool _fail;  //!< internal state flag: whether past read operation has failed
 };
-}  // namespace annotate_frequency
+}  // namespace finter
 
-#endif  // FINTER_FINTER_FINTER_READER_PARENT_H_
+#endif  // FINTER_FINTER_READER_PARENT_H_

@@ -7,21 +7,21 @@
 
 #include "finter/finter_writer_bzip2.h"
 
-void annotate_frequency::finter_writer_bzip2::open(const char *filename) {
+void finter::finter_writer_bzip2::open(const char *filename) {
   if (_raw_output)
     throw std::domain_error(
-        "annotate_frequency::finter_writer_bzip2: attempted to reopen "
+        "finter::finter_writer_bzip2: attempted to reopen "
         "in-use handle");
   _raw_output = fopen(filename, "w");
   if (!_raw_output)
     throw std::domain_error(
-        "annotate_frequency::finter_writer_bzip2: cannot open file \"" +
+        "finter::finter_writer_bzip2: cannot open file \"" +
         std::string(filename) + "\"");
   int error = 0;
   _bz_output = BZ2_bzWriteOpen(&error, _raw_output, 9, 0, 0);
   if (error == BZ_CONFIG_ERROR) {
     throw std::domain_error(
-        "annotate_frequency::finter_writer_bzip2::open: bzip2 writing "
+        "finter::finter_writer_bzip2::open: bzip2 writing "
         "library reports it was compiled improperly");
   } else if (error == BZ_PARAM_ERROR) {
     _fail = true;
@@ -30,13 +30,13 @@ void annotate_frequency::finter_writer_bzip2::open(const char *filename) {
   }
 }
 
-void annotate_frequency::finter_writer_bzip2::close() {
+void finter::finter_writer_bzip2::close() {
   int error = 0;
   if (_bz_output) {
     BZ2_bzWriteClose(&error, _bz_output, 0, 0, 0);
     if (error == BZ_SEQUENCE_ERROR) {
       throw std::domain_error(
-          "annotate_frequency::finter_writer_bzip2::close: bzip reports "
+          "finter::finter_writer_bzip2::close: bzip reports "
           "write/close operation called on read handle");
     }
     _bz_output = 0;
@@ -47,28 +47,28 @@ void annotate_frequency::finter_writer_bzip2::close() {
   }
 }
 
-void annotate_frequency::finter_writer_bzip2::clear() {
+void finter::finter_writer_bzip2::clear() {
   _good = true;
   _bad = _fail = false;
 }
 
-bool annotate_frequency::finter_writer_bzip2::is_open() const {
+bool finter::finter_writer_bzip2::is_open() const {
   return (_raw_output && _bz_output);
 }
 
-void annotate_frequency::finter_writer_bzip2::put(char c) {
+void finter::finter_writer_bzip2::put(char c) {
   int error = 0;
   BZ2_bzWrite(&error, _bz_output, reinterpret_cast<void *>(&c), 1);
   if (error == BZ_PARAM_ERROR || error == BZ_IO_ERROR) {
     _fail = true;
   } else if (error == BZ_SEQUENCE_ERROR) {
     throw std::domain_error(
-        "annotate_frequency::finter_writer_bzip2::put: bzip reports "
+        "finter::finter_writer_bzip2::put: bzip reports "
         "write operation called on read handle");
   }
 }
 
-void annotate_frequency::finter_writer_bzip2::writeline(
+void finter::finter_writer_bzip2::writeline(
     const std::string &orig_line) {
   int error = 0;
   std::string line = orig_line + get_newline();
@@ -79,13 +79,13 @@ void annotate_frequency::finter_writer_bzip2::writeline(
     _fail = true;
   } else if (error == BZ_SEQUENCE_ERROR) {
     throw std::domain_error(
-        "annotate_frequency::finter_writer_bzip2::writeline: bzip "
+        "finter::finter_writer_bzip2::writeline: bzip "
         "reports "
         "write operation called on read handle");
   }
 }
 
-void annotate_frequency::finter_writer_bzip2::write(char *buf,
+void finter::finter_writer_bzip2::write(char *buf,
                                                     std::streamsize n) {
   int error = 0;
   BZ2_bzWrite(&error, _bz_output, reinterpret_cast<void *>(buf),
@@ -94,7 +94,7 @@ void annotate_frequency::finter_writer_bzip2::write(char *buf,
     _fail = true;
   } else if (error == BZ_SEQUENCE_ERROR) {
     throw std::domain_error(
-        "annotate_frequency::finter_writer_bzip2::write: bzip reports "
+        "finter::finter_writer_bzip2::write: bzip reports "
         "write operation called on read handle");
   }
 }

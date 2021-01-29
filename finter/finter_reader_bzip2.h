@@ -5,8 +5,8 @@
   Copyright 2020 Cameron Palmer
  */
 
-#ifndef FINTER_FINTER_FINTER_READER_BZIP2_H_
-#define FINTER_FINTER_FINTER_READER_BZIP2_H_
+#ifndef FINTER_FINTER_READER_BZIP2_H_
+#define FINTER_FINTER_READER_BZIP2_H_
 
 #include <bzlib.h>
 #include <cstdio>
@@ -16,7 +16,7 @@
 #include "finter/config.h"
 #include "finter/finter_reader_parent.h"
 
-namespace annotate_frequency {
+namespace finter {
 /*!
   \class finter_reader_bzip2
   \brief interface for bzip2 file input that doesn't break my brain
@@ -104,6 +104,6 @@ class finter_reader_bzip2 : public finter_reader {
   unsigned _buf_read;  //!< number of characters read from file into buffer
   unsigned _buf_remaining;  //!< remaining space in read characters in buffer
 };
-}  // namespace annotate_frequency
+}  // namespace finter
 
-#endif  // FINTER_FINTER_FINTER_READER_BZIP2_H_
+#endif  // FINTER_FINTER_READER_BZIP2_H_
